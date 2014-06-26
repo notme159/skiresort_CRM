@@ -1,0 +1,77 @@
+05-03 15:45:04 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "CELKOVA_CENA DECIMAL(6, 2)": "10670.00 (7)"; SQL statement:
+insert into skiresort.ubytovani (datum_prijezdu,datum_odjezdu,celkova_cena) values (default,?,?) [22001-171]
+05-03 22:52:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "CENA_K_ZAPLACENI DECIMAL(6, 2)": "12000.00 (7)"; SQL statement:
+insert into skiresort.vypujcka (datum_vypujcky, datum_vraceni, cena_k_zaplaceni, zakaznik_zakaznik_id, vraceno_vcas) values( ?, ?, ?, ?, null ) [22001-171]
+05-03 22:53:21 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "CENA_K_ZAPLACENI DECIMAL(6, 2)": "16080.00 (7)"; SQL statement:
+insert into skiresort.vypujcka (datum_vypujcky, datum_vraceni, cena_k_zaplaceni, zakaznik_zakaznik_id, vraceno_vcas) values( ?, ?, ?, ?, null ) [22001-171]
+05-03 22:56:28 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-171]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.message.DbException.get(DbException.java:135)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1388)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1366)
+	at org.h2.jdbc.JdbcConnection.getWarnings(JdbcConnection.java:588)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.isVitalConnection(DatabaseConnection.java:292)
+	at org.netbeans.modules.db.explorer.node.ConnectionNode.getIconBase(ConnectionNode.java:394)
+	at org.netbeans.api.db.explorer.node.BaseNode.updateProperties(BaseNode.java:294)
+	at org.netbeans.api.db.explorer.node.BaseNode.update(BaseNode.java:281)
+	at org.netbeans.api.db.explorer.node.BaseNode$1.stateChanged(BaseNode.java:231)
+	at org.openide.util.ChangeSupport.fireChange(ChangeSupport.java:133)
+	at org.openide.util.ChangeSupport.fireChange(ChangeSupport.java:119)
+	at org.netbeans.modules.db.explorer.node.NodeRegistry.stateChanged(NodeRegistry.java:182)
+	at org.openide.util.ChangeSupport.fireChange(ChangeSupport.java:133)
+	at org.openide.util.ChangeSupport.fireChange(ChangeSupport.java:119)
+	at org.netbeans.api.db.explorer.node.NodeProvider.removeAllNodes(NodeProvider.java:224)
+	at org.netbeans.modules.db.explorer.node.NodeRegistry.removeAllNodes(NodeRegistry.java:154)
+	at org.netbeans.modules.db.explorer.node.ConnectionNode$2.run(ConnectionNode.java:324)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1432)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2044)
+05-03 22:56:28 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-171]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.message.DbException.get(DbException.java:135)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1388)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1366)
+	at org.h2.jdbc.JdbcConnection.getWarnings(JdbcConnection.java:588)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.isVitalConnection(DatabaseConnection.java:292)
+	at org.netbeans.modules.db.explorer.node.ConnectionNode.getIconBase(ConnectionNode.java:394)
+	at org.netbeans.api.db.explorer.node.BaseNode.updateProperties(BaseNode.java:294)
+	at org.netbeans.api.db.explorer.node.BaseNode.update(BaseNode.java:281)
+	at org.netbeans.api.db.explorer.node.BaseNode.refresh(BaseNode.java:192)
+	at org.netbeans.modules.db.explorer.node.ConnectionNode$2.run(ConnectionNode.java:325)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1432)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2044)
+05-03 22:56:28 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-171]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.message.DbException.get(DbException.java:135)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1388)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1366)
+	at org.h2.jdbc.JdbcConnection.getWarnings(JdbcConnection.java:588)
+	at org.netbeans.modules.db.explorer.DatabaseConnection.isVitalConnection(DatabaseConnection.java:292)
+	at org.netbeans.modules.db.explorer.node.ConnectionNode.getIconBase(ConnectionNode.java:394)
+	at org.netbeans.api.db.explorer.node.BaseNode.updateProperties(BaseNode.java:294)
+	at org.netbeans.api.db.explorer.node.BaseNode.update(BaseNode.java:281)
+	at org.netbeans.api.db.explorer.node.BaseNode$1.stateChanged(BaseNode.java:231)
+	at org.openide.util.ChangeSupport.fireChange(ChangeSupport.java:133)
+	at org.openide.util.ChangeSupport.fireChange(ChangeSupport.java:119)
+	at org.netbeans.modules.db.explorer.node.NodeRegistry.stateChanged(NodeRegistry.java:182)
+	at org.openide.util.ChangeSupport.fireChange(ChangeSupport.java:133)
+	at org.openide.util.ChangeSupport.fireChange(ChangeSupport.java:119)
+	at org.netbeans.api.db.explorer.node.NodeProvider.setNodes(NodeProvider.java:191)
+	at org.netbeans.modules.db.explorer.node.CatalogNodeProvider.initialize(CatalogNodeProvider.java:141)
+	at org.netbeans.api.db.explorer.node.NodeProvider.getNodes(NodeProvider.java:107)
+	at org.netbeans.modules.db.explorer.node.NodeRegistry.getNodes(NodeRegistry.java:167)
+	at org.netbeans.api.db.explorer.node.ChildNodeFactory.createKeys(ChildNodeFactory.java:108)
+	at org.openide.nodes.AsynchChildren.run(AsynchChildren.java:209)
+	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1432)
+	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2044)

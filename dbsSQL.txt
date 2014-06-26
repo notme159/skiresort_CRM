@@ -1,0 +1,191 @@
+DROP SCHEMA IF EXISTS `skiresort` ;
+CREATE SCHEMA IF NOT EXISTS `skiresort` ;
+
+-- -----------------------------------------------------
+-- Table `skiresort`.`Psc`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `skiresort`.`Psc` (
+  `psc` VARCHAR(5) NOT NULL ,
+  `mesto` VARCHAR(45) NULL ,
+  PRIMARY KEY (`psc`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `skiresort`.`Adresa`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `skiresort`.`Adresa` (
+  `adresa_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `ulice` VARCHAR(45) NULL ,
+  `cp` VARCHAR(10) NULL ,
+  `Psc_psc` VARCHAR(5) NULL ,
+  PRIMARY KEY (`adresa_id`) ,
+  CONSTRAINT `fk_Adresa_Psc1`
+    FOREIGN KEY (`Psc_psc` )
+    REFERENCES `skiresort`.`Psc` (`psc` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_Adresa_Psc1_idx` ON `skiresort`.`Adresa` (`Psc_psc` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `skiresort`.`Ubytovani`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `skiresort`.`Ubytovani` (
+  `ubytovani_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `datum_prijezdu` DATE NULL DEFAULT CURRENT_TIMESTAMP ,
+  `datum_odjezdu` DATE NULL ,
+  `celkova_cena` DECIMAL(6,2) UNSIGNED NULL ,
+  PRIMARY KEY (`ubytovani_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `skiresort`.`Zakaznik`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `skiresort`.`Zakaznik` (
+  `zakaznik_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `jmeno` VARCHAR(45) NULL ,
+  `prijmeni` VARCHAR(45) NULL ,
+  `telefon` VARCHAR(13) NULL ,
+  `email` VARCHAR(45) NULL ,
+  `Adresa_adresa_id` SMALLINT UNSIGNED NULL ,
+  `Ubytovani_ubytovani_id` SMALLINT UNSIGNED NULL ,
+  PRIMARY KEY (`zakaznik_id`) ,
+  CONSTRAINT `fk_Zakaznik_Adresa1`
+    FOREIGN KEY (`Adresa_adresa_id` )
+    REFERENCES `skiresort`.`Adresa` (`adresa_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Zakaznik_Ubytovani1`
+    FOREIGN KEY (`Ubytovani_ubytovani_id` )
+    REFERENCES `skiresort`.`Ubytovani` (`ubytovani_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_Zakaznik_Adresa1_idx` ON `skiresort`.`Zakaznik` (`Adresa_adresa_id` ASC) ;
+
+CREATE INDEX `fk_Zakaznik_Ubytovani1_idx` ON `skiresort`.`Zakaznik` (`Ubytovani_ubytovani_id` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `skiresort`.`Permanentka`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `skiresort`.`Permanentka` (
+  `permanentka_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `cena` DECIMAL(5,2) UNSIGNED NOT NULL ,
+  `typ_permanentky` VARCHAR(20) NOT NULL ,
+  `Zakaznik_zakaznik_id` INT UNSIGNED NOT NULL ,
+  PRIMARY KEY (`permanentka_id`) ,
+  CONSTRAINT `fk_Permanentka_Zakaznik1`
+    FOREIGN KEY (`Zakaznik_zakaznik_id` )
+    REFERENCES `skiresort`.`Zakaznik` (`zakaznik_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_Permanentka_Zakaznik1_idx` ON `skiresort`.`Permanentka` (`Zakaznik_zakaznik_id` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `skiresort`.`Vypujcka`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `skiresort`.`Vypujcka` (
+  `vypujcka_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `datum_vypujcky` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `datum_vraceni` TIMESTAMP NULL ,
+  `cena_k_zaplaceni` DECIMAL(6,2) UNSIGNED NULL ,
+  `Zakaznik_zakaznik_id` INT UNSIGNED NULL ,
+  `vraceno_vcas` BIT NULL ,
+  PRIMARY KEY (`vypujcka_id`) ,
+  CONSTRAINT `fk_Vypujcka_Zakaznik1`
+    FOREIGN KEY (`Zakaznik_zakaznik_id` )
+    REFERENCES `skiresort`.`Zakaznik` (`zakaznik_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_Vypujcka_Zakaznik1_idx` ON `skiresort`.`Vypujcka` (`Zakaznik_zakaznik_id` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `skiresort`.`Kategorie`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `skiresort`.`Kategorie` (
+  `kategorie_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `jmeno_kategorie` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`kategorie_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `skiresort`.`Produkt`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `skiresort`.`Produkt` (
+  `produkt_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `jmeno_produktu` VARCHAR(45) NOT NULL ,
+  `velikost` SMALLINT UNSIGNED NOT NULL ,
+  `cena` DECIMAL(5,2) UNSIGNED NOT NULL ,
+  `Kategorie_kategorie_id` TINYINT UNSIGNED NOT NULL ,
+  `pujceno` BIT NULL ,
+  `Vypujcka_vypujcka_id` SMALLINT UNSIGNED NULL ,
+  PRIMARY KEY (`produkt_id`) ,
+  CONSTRAINT `fk_Produkt_Kategorie1`
+    FOREIGN KEY (`Kategorie_kategorie_id` )
+    REFERENCES `skiresort`.`Kategorie` (`kategorie_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Produkt_Vypujcka1`
+    FOREIGN KEY (`Vypujcka_vypujcka_id` )
+    REFERENCES `skiresort`.`Vypujcka` (`vypujcka_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_Produkt_Kategorie1_idx` ON `skiresort`.`Produkt` (`Kategorie_kategorie_id` ASC) ;
+
+CREATE INDEX `fk_Produkt_Vypujcka1_idx` ON `skiresort`.`Produkt` (`Vypujcka_vypujcka_id` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `skiresort`.`Pokoj`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `skiresort`.`Pokoj` (
+  `pokoj_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `pocet_luzek` TINYINT UNSIGNED NULL ,
+  `internet` BIT NULL ,
+  `Ubytovani_ubytovani_id` SMALLINT UNSIGNED NULL ,
+  `cena` DECIMAL(6,2) UNSIGNED NULL ,
+  `volny` BIT NULL ,
+  PRIMARY KEY (`pokoj_id`) ,
+  CONSTRAINT `fk_Pokoj_Ubytovani1`
+    FOREIGN KEY (`Ubytovani_ubytovani_id` )
+    REFERENCES `skiresort`.`Ubytovani` (`ubytovani_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_Pokoj_Ubytovani1_idx` ON `skiresort`.`Pokoj` (`Ubytovani_ubytovani_id` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `skiresort`.`Strava`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `skiresort`.`Strava` (
+  `strava_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `typ_penze` VARCHAR(45) NULL ,
+  `typ_stravy` VARCHAR(45) NULL ,
+  `Ubytovani_ubytovani_id` SMALLINT UNSIGNED NULL ,
+  `cena` DECIMAL(6,2) UNSIGNED NULL ,
+  PRIMARY KEY (`strava_id`) ,
+  CONSTRAINT `fk_Strava_Ubytovani1`
+    FOREIGN KEY (`Ubytovani_ubytovani_id` )
+    REFERENCES `skiresort`.`Ubytovani` (`ubytovani_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_Strava_Ubytovani1_idx` ON `skiresort`.`Strava` (`Ubytovani_ubytovani_id` ASC) ;
